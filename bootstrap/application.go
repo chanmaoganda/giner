@@ -2,20 +2,22 @@ package bootstrap
 
 import (
 	"github.com/chanmaoganda/giner/router"
+	"github.com/chanmaoganda/giner/state"
 	"github.com/gin-gonic/gin"
 )
 
 func Application() error {
-	InitializeLogger()
-	Log.Info("Logger initialized!")
+	gin.SetMode(gin.ReleaseMode)
 
-	database := CreateDatabase()
+	state.InitializeLogger()
 
-	engine := gin.New()
+	state.CreateDatabase()
 
-	engine = router.MakeService(database, engine)
+	engine := router.MakeService()
 
 	address := "localhost:8080"
+
+	state.Log.Info("Currently running on " + address)
 
 	return engine.Run(address)
 }

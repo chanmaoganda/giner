@@ -8,13 +8,12 @@ import (
 
 type User struct {
 	UserName string `json:"username"`
-	Password string `json:"password"`
 	Email    string `json:"email"`
 }
 
 func QueryByName(db *sql.DB, name string) *User {
 	var user User
-	err := db.QueryRow("SELECT username, password, email FROM users WHERE username = $1", name).Scan(&user)
+	err := db.QueryRow("SELECT username, email FROM users WHERE username = $1", name).Scan(&user)
 	if err != nil {
 		logrus.Debug("Scan error")
 	}

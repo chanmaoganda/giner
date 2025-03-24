@@ -1,4 +1,4 @@
-package bootstrap
+package state
 
 import (
 	"github.com/sirupsen/logrus"
@@ -13,4 +13,9 @@ func InitializeLogger() {
 	Log.SetLevel(logrus.DebugLevel)
 
 	Log.SetOutput(os.Stdout)
+
+	{
+		// at last print out some log to check if logger works
+		Log.Info("Logger initialized!")
+	}
 }

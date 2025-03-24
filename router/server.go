@@ -1,12 +1,18 @@
 package router
 
 import (
-	"database/sql"
-
+	"github.com/chanmaoganda/giner/service"
 	"github.com/gin-gonic/gin"
 )
 
-func MakeService(db *sql.DB, engine *gin.Engine) (*gin.Engine) {
+func MakeService() (*gin.Engine) {
+	engine := gin.New()
+
+	gin.SetMode(gin.ReleaseMode)
+	
+	v0 := engine.Group("/v0")
+
+	v0.GET("/user/:username", service.FindByName)
 
 	return engine
 }
