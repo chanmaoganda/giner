@@ -6,9 +6,7 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func Server(db *sql.DB) (*gin.Engine) {
+func MakeService(db *sql.DB, engine *gin.Engine) (*gin.Engine) {
 
-	router := gin.Default()
-
-	return router
+	return engine
 }
