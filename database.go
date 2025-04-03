@@ -1,19 +1,19 @@
 package giner
 
 import (
-	"database/sql"
 	"log"
 	"os"
 
-	_ "github.com/lib/pq" // Import pq driver
+	"gorm.io/driver/postgres"
+	"gorm.io/gorm"
 )
 
-var DB *sql.DB
+var DB *gorm.DB
 
 func InitDataBase() {
 	database_url := os.Getenv("DATABASE_URL")
 
-	db, err := sql.Open("postgres", database_url)
+	db, err := gorm.Open(postgres.Open(database_url), &gorm.Config{})
 
 	if err != nil {
 		log.Panicln("Database open failed")

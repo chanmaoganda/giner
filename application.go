@@ -5,20 +5,29 @@ import (
 	"net/http"
 
 	"github.com/chanmaoganda/giner/middleware"
+	"github.com/chanmaoganda/giner/models"
 	"github.com/gin-gonic/gin"
 )
 
-type User struct {
-	Username string `json:"username"`
+func PrepareLogs() {
+	log.SetFlags(log.LstdFlags | log.Lshortfile)
+	log.SetPrefix("[DEBUG] ")
+}
+
+func PrepareAppStates() {
+	InitDataBase()
+	
 }
 
 func Run() {
-	InitDataBase()
+	PrepareLogs()
+
+	LoadEnv()
 
 	router := gin.Default()
 
 	router.POST("/login", func(ctx *gin.Context) {
-		var user User
+		var user models.AuthUser
 		if ctx.BindJSON(&user) == nil {
 			token, err := middleware.SignToken(user.Username)
 			if err != nil {
